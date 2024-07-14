@@ -3,30 +3,25 @@ import QueryBuilder from '../../../builder/QueryBuilder';
 import { getYearRange } from '../../../helpers/yearRange';
 import { IGenericResponse } from '../../../interfaces/paginations';
 import { logger } from '../../../shared/logger';
-import { IDriver } from '../driver/driver.interface';
-import Driver from '../driver/driver.model';
+
 import { IUser } from '../user/user.interface';
 
 import User from '../user/user.model';
 const totalCount = async () => {
   const users = await User.countDocuments();
-  const drivers = await Driver.countDocuments();
 
   const oneMonthAgo = new Date();
   oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
-  const newDrivers = await Driver.countDocuments({
-    createdAt: { $gte: oneMonthAgo },
-  });
-  const newDriversDetails = await Driver.find({
-    createdAt: { $gte: oneMonthAgo },
-  });
+  // const newDrivers = await Driver.countDocuments({
+  //   createdAt: { $gte: oneMonthAgo },
+  // });
+  // const newDriversDetails = await Driver.find({
+  //   createdAt: { $gte: oneMonthAgo },
+  // });
 
   return {
     users,
-    drivers,
-    newDrivers,
-    newDriversDetails,
   };
 };
 
