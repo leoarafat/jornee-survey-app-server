@@ -3,28 +3,11 @@ import { model, Schema } from 'mongoose';
 import { packageName } from '../../../constants/subscription.name';
 import ApiError from '../../../errors/ApiError';
 import {
-  IPackageDetails,
   ISubscriptionPlan,
   SubscriptionPlanModel,
 } from './subscriptions-plan.interface';
 
-const packageDetailSchema = new Schema<IPackageDetails>(
-  {
-    title: {
-      type: String,
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  { _id: false },
-);
-
-const subscriptionPlanSchema = new Schema<
-  ISubscriptionPlan,
-  SubscriptionPlanModel
->(
+const subscriptionPlanSchema = new Schema<ISubscriptionPlan>(
   {
     packageName: {
       type: String,
@@ -34,25 +17,6 @@ const subscriptionPlanSchema = new Schema<
     packagePrice: {
       type: Number,
       required: true,
-    },
-    packageDuration: {
-      type: Number,
-      required: true,
-    },
-    trainingVideo: {
-      type: packageDetailSchema,
-    },
-    communityGroup: {
-      type: packageDetailSchema,
-    },
-    videoLesson: {
-      type: packageDetailSchema,
-    },
-    chat: {
-      type: packageDetailSchema,
-    },
-    program: {
-      type: packageDetailSchema,
     },
   },
   { timestamps: true },
