@@ -16,6 +16,18 @@ const createSubscriptionPlan = catchAsync(
     });
   },
 );
+const createSubscriptionFreeUserToDB = catchAsync(
+  async (req: Request, res: Response) => {
+    const result =
+      await SubscriptionsPlanService.createSubscriptionFreeUserToDB(req.body);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Subscription plan for user created successfully',
+      data: result,
+    });
+  },
+);
 
 const getAllSubscriptionPlan = catchAsync(
   async (req: Request, res: Response) => {
@@ -30,6 +42,16 @@ const getAllSubscriptionPlan = catchAsync(
     });
   },
 );
+const getAllFreeUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await SubscriptionsPlanService.getAllFreeUser();
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Subscription plan free user successfully',
+    data: result,
+  });
+});
 
 const updateSubscriptionPlan = catchAsync(
   async (req: Request, res: Response) => {
@@ -46,9 +68,22 @@ const updateSubscriptionPlan = catchAsync(
     });
   },
 );
+const deleteFreeUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await SubscriptionsPlanService.deleteFreeUser(id);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Subscription for user deleted successfully',
+    data: result,
+  });
+});
 
 export const SubscriptionsPlanController = {
   createSubscriptionPlan,
   getAllSubscriptionPlan,
   updateSubscriptionPlan,
+  createSubscriptionFreeUserToDB,
+  deleteFreeUser,
+  getAllFreeUser,
 };

@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
 import { model, Schema } from 'mongoose';
-import { packageName } from '../../../constants/subscription.name';
 import ApiError from '../../../errors/ApiError';
 import {
   ISubscriptionPlan,
+  ISubscriptionPlanForUser,
   SubscriptionPlanModel,
 } from './subscriptions-plan.interface';
 
@@ -11,11 +11,21 @@ const subscriptionPlanSchema = new Schema<ISubscriptionPlan>(
   {
     packageName: {
       type: String,
-      enum: packageName,
+
       required: true,
     },
     packagePrice: {
       type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
+const subscriptionPlanForUserSchema = new Schema<ISubscriptionPlanForUser>(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
   },
@@ -38,4 +48,8 @@ subscriptionPlanSchema.pre('save', async function (next) {
 export const SubscriptionPlan = model<ISubscriptionPlan, SubscriptionPlanModel>(
   'SubscriptionPlan',
   subscriptionPlanSchema,
+);
+export const SubscriptionFreeUser = model(
+  'SubscriptionFreeUser',
+  subscriptionPlanForUserSchema,
 );
