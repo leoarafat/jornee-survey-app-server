@@ -3,32 +3,17 @@ import { INotification } from './notifications.interface';
 
 const notificationSchema = new Schema<INotification>(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-    driver: {
-      type: Schema.Types.ObjectId,
-      ref: 'Driver',
-    },
     title: {
       type: String,
       required: true,
     },
-    message: {
+    description: {
       type: String,
       required: true,
-    },
-    status: {
-      type: Boolean,
-      default: false,
     },
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-    },
   },
 );
 const Notification: Model<INotification> = mongoose.model(
