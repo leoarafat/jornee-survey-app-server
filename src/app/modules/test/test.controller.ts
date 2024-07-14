@@ -42,10 +42,50 @@ const getTestItems = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const updateTest = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.updateTest(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Test update successfully',
+    data: result,
+  });
+});
+const updateTestItem = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.updateTestItem(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Test item update successfully',
+    data: result,
+  });
+});
+const deleteTest = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.deleteTest(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Test delete successfully',
+    data: result,
+  });
+});
+const deleteTestItem = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.deleteTestItem(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Test item delete successfully',
+    data: result,
+  });
+});
 
 export const TestController = {
   createTest,
   createTestItem,
   getTests,
   getTestItems,
+  updateTest,
+  updateTestItem,
+  deleteTest,
+  deleteTestItem,
 };
