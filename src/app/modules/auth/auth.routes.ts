@@ -15,6 +15,11 @@ router.post(
   validateRequest(UserValidation.create),
   UserController.registrationUser,
 );
+router.post(
+  '/social-login',
+
+  UserController.socialAuth,
+);
 router.post('/activate-user', UserController.activateUser);
 router.post(
   '/login',

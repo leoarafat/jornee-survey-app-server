@@ -8,13 +8,11 @@ const UserSchema = new Schema<IUser, UserModel>(
   {
     name: {
       type: String,
-      required: true,
     },
     user_name: {
       type: String,
       unique: true,
       sparse: true,
-      // required: true,
     },
     email: {
       type: String,
@@ -27,12 +25,10 @@ const UserSchema = new Schema<IUser, UserModel>(
     },
     phone_number: {
       type: String,
-
-      // required: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      // required: [true, 'Password is required'],
       select: false,
     },
     address: {
@@ -44,22 +40,12 @@ const UserSchema = new Schema<IUser, UserModel>(
       default: 'USER',
     },
 
-    age: {
-      type: String,
-    },
     profile_image: {
       type: String,
       default:
         'https://www.freeiconspng.com/thumbs/computer-user-icon/computer-user-icon-28.png',
     },
 
-    location: {
-      type: String,
-    },
-
-    date_of_birth: {
-      type: Date,
-    },
     verifyCode: {
       type: String,
     },
@@ -81,9 +67,6 @@ const UserSchema = new Schema<IUser, UserModel>(
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-    },
   },
 );
 

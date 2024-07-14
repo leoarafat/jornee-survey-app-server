@@ -18,13 +18,7 @@ import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import { Request } from 'express';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
-import {
-  IChangePassword,
-  ILoginUser,
-  ILoginUserResponse,
-  IRefreshTokenResponse,
-} from '../auth/auth.interface';
-import { updateImageUrl } from '../../../utils/url-modifier';
+import { IChangePassword, ILoginUser } from '../auth/auth.interface';
 import QueryBuilder from '../../../builder/QueryBuilder';
 import { IGenericResponse } from '../../../interfaces/paginations';
 import httpStatus from 'http-status';
@@ -37,12 +31,10 @@ import { logger } from '../../../shared/logger';
 
 //!
 const registrationUser = async (payload: IRegistration) => {
-  const { name, email, password, confirmPassword, role } = payload;
+  const { email, password } = payload;
   const user = {
-    name,
     email,
     password,
-    confirmPassword,
     expirationTime: Date.now() + 2 * 60 * 1000,
   } as unknown as IUser;
 
@@ -50,15 +42,10 @@ const registrationUser = async (payload: IRegistration) => {
   if (isEmailExist) {
     throw new ApiError(400, 'Email already exist');
   }
-  if (password !== confirmPassword) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      "Password and Confirm Password Didn't Match",
-    );
-  }
+
   const activationToken = createActivationToken();
   const activationCode = activationToken.activationCode;
-  const data = { user: { name: user.name }, activationCode };
+  const data = { user: { name: 'Dear' }, activationCode };
 
   try {
     sendEmail({
@@ -156,6 +143,32 @@ const getAllUsers = async (
   };
 };
 //!
+const socialAuth = async (req: Request) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    const result = await User.create({
+      email,
+    });
+    const { _id: userId, role } = result;
+    const accessToken = jwtHelpers.createToken(
+      { userId, role },
+      config.jwt.secret as Secret,
+      config.jwt.expires_in as string,
+    );
+    //Create refresh token
+    const refreshToken = jwtHelpers.createToken(
+      { userId, role },
+      config.jwt.refresh_secret as Secret,
+      config.jwt.refresh_expires_in as string,
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+};
 
 //!
 const getSingleUser = async (user: IReqUser) => {
@@ -226,7 +239,7 @@ const loginUser = async (payload: ILoginUser) => {
   const { email, password } = payload;
 
   const isUserExist = (await User.isUserExist(email)) as IUser;
-  const checkUser = await User.findOne({ email });
+
   if (!isUserExist) {
     throw new ApiError(404, 'User does not exist');
   }
@@ -246,7 +259,7 @@ const loginUser = async (payload: ILoginUser) => {
 
   const { _id: userId, role } = isUserExist;
   const accessToken = jwtHelpers.createToken(
-    { userId, role, conversationId: checkUser?.conversationId },
+    { userId, role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string,
   );
@@ -258,9 +271,6 @@ const loginUser = async (payload: ILoginUser) => {
   );
 
   return {
-    id: checkUser?._id,
-    conversationId: checkUser?.conversationId,
-    isPaid: checkUser?.isPaid,
     accessToken,
     refreshToken,
   };
@@ -481,4 +491,5 @@ export const UserService = {
   checkIsValidForgetActivationCode,
   resendActivationCode,
   blockUser,
+  socialAuth,
 };

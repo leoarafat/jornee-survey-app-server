@@ -18,6 +18,18 @@ const registrationUser: RequestHandler = catchAsync(
     });
   },
 );
+const socialAuth: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await UserService.socialAuth(req.body);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: `Login Successful`,
+      data: result,
+    });
+  },
+);
 const activateUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const result = await UserService.activateUser(req.body);
@@ -178,7 +190,7 @@ export const UserController = {
   registrationUser,
   login,
   changePassword,
-
+  socialAuth,
   updateProfile,
   forgotPass,
   resetPassword,
