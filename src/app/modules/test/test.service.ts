@@ -20,8 +20,15 @@ const createTestItem = async (payload: ITestItem) => {
   }
   return await TestItem.create(payload);
 };
-
+const getTest = async () => {
+  return await Test.find({});
+};
+const getTestItem = async (id: string) => {
+  return await TestItem.find({ test: id });
+};
 export const TestService = {
   createTest,
   createTestItem,
+  getTest,
+  getTestItem,
 };
