@@ -11,9 +11,19 @@ router.post(
   TestController.createTest,
 );
 router.post(
+  '/create-prompts',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  TestController.createMultiplePrompts,
+);
+router.post(
   '/create-test-item',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   TestController.createTestItem,
+);
+router.post(
+  '/create-prompt-question',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  TestController.createJournalizingPrompt,
 );
 router.get(
   '/all',
@@ -25,6 +35,11 @@ router.get(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestController.getTestItems,
 );
+router.get(
+  '/prompt-question/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
+  TestController.getJournalizingPrompt,
+);
 router.patch(
   '/edit-test/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
@@ -35,6 +50,11 @@ router.patch(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestController.updateTestItem,
 );
+router.patch(
+  '/edit-prompt-question/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
+  TestController.updateJournalizingPrompt,
+);
 router.delete(
   '/delete-test/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
@@ -44,5 +64,10 @@ router.delete(
   '/delete-test-item/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestController.deleteTestItem,
+);
+router.delete(
+  '/delete-prompt-question/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
+  TestController.deleteJournalizingPrompt,
 );
 export const TestRoutes = router;

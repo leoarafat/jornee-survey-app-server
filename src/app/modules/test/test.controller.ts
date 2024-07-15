@@ -21,6 +21,28 @@ const createTestItem = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const createJournalizingPrompt = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.createJournalizingPrompt(req.body);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'created successfully',
+      data: result,
+    });
+  },
+);
+const createMultiplePrompts = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.createMultiplePrompts(req.body);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'created successfully',
+      data: result,
+    });
+  },
+);
 
 const getTests = catchAsync(async (req: Request, res: Response) => {
   const result = await TestService.getTest();
@@ -42,6 +64,18 @@ const getTestItems = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getJournalizingPrompt = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.getJournalizingPrompt(req.params.id);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Retrieved successfully',
+      data: result,
+    });
+  },
+);
 const updateTest = catchAsync(async (req: Request, res: Response) => {
   const result = await TestService.updateTest(req);
   sendResponse(res, {
@@ -60,6 +94,17 @@ const updateTestItem = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const updateJournalizingPrompt = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.updateJournalizingPrompt(req);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'update successfully',
+      data: result,
+    });
+  },
+);
 const deleteTest = catchAsync(async (req: Request, res: Response) => {
   const result = await TestService.deleteTest(req);
   sendResponse(res, {
@@ -79,6 +124,18 @@ const deleteTestItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteJournalizingPrompt = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.deleteJournalizingPrompt(req);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Test item delete successfully',
+      data: result,
+    });
+  },
+);
+
 export const TestController = {
   createTest,
   createTestItem,
@@ -88,4 +145,9 @@ export const TestController = {
   updateTestItem,
   deleteTest,
   deleteTestItem,
+  createJournalizingPrompt,
+  getJournalizingPrompt,
+  updateJournalizingPrompt,
+  deleteJournalizingPrompt,
+  createMultiplePrompts,
 };
