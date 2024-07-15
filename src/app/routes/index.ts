@@ -12,6 +12,7 @@ import { DashboardRoutes } from '../modules/dashboard/dashboard.routes';
 import { RattingRoutes } from '../modules/rattings/rattings.routes';
 import { TestRoutes } from '../modules/test/test.routes';
 import { TestUserRoutes } from '../modules/test-to-user/test-to-user.routes';
+import { DailyPromptRoutes } from '../modules/daily-promts/daily-promts.routes';
 
 const router = express.Router();
 
@@ -66,6 +67,10 @@ const moduleRoutes = [
   {
     path: '/test-user',
     route: TestUserRoutes,
+  },
+  {
+    path: '/daily-prompts',
+    route: DailyPromptRoutes,
   },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));
