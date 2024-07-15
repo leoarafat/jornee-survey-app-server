@@ -23,8 +23,34 @@ const getTestUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const averageTestPercentage = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestUserService.averageTestPercentage();
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Retrieved successfully',
+      data: result,
+    });
+  },
+);
+const getScoreTypeDistributionByTestId = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestUserService.getScoreTypeDistributionByTestId(req);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Retrieved successfully',
+      data: result,
+    });
+  },
+);
 
 export const TestUserController = {
   createUserTest,
   getTestUser,
+  averageTestPercentage,
+  getScoreTypeDistributionByTestId,
 };

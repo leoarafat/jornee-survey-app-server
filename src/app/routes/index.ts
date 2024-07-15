@@ -65,7 +65,7 @@ const moduleRoutes = [
     route: TestRoutes,
   },
   {
-    path: '/test-user',
+    path: '/begin-test',
     route: TestUserRoutes,
   },
   {

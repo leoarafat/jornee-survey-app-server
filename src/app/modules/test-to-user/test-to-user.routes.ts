@@ -16,5 +16,15 @@ router.get(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestUserController.getTestUser,
 );
+router.get(
+  '/average-test',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  TestUserController.averageTestPercentage,
+);
+router.get(
+  '/average-test-scoreType/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  TestUserController.getScoreTypeDistributionByTestId,
+);
 
 export const TestUserRoutes = router;

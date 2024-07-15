@@ -17,4 +17,4 @@ router.get(
   DailyPromptsController.myPromptsAnswer,
 );
 
-export const TestUserRoutes = router;
+export const DailyPromptRoutes = router;

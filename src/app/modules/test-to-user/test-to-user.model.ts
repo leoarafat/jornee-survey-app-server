@@ -25,6 +25,10 @@ const testUserSchema = new Schema<ITestUser>(
       type: String,
       required: true,
     },
+    scoreResult: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

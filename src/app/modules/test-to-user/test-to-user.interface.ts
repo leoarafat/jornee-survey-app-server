@@ -7,5 +7,6 @@ export type ITestUser = {
   user: Types.ObjectId | IUser;
   score: number;
   scoreType: string;
+  scoreResult: string;
   totalQuestion: number;
 };
