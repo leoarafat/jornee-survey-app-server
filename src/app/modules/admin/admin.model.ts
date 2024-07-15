@@ -7,8 +7,6 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
   {
     name: {
       type: String,
-
-      required: true,
     },
     user_name: {
       type: String,

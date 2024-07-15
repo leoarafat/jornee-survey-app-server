@@ -11,7 +11,7 @@ const createTest = async (payload: ITest) => {
   return await Test.create(payload);
 };
 const createTestItem = async (payload: ITestItem) => {
-  const isExistTest = await Test.findOne({ name: payload.test });
+  const isExistTest = await Test.findOne({ _id: payload.test });
   if (!isExistTest) {
     throw new ApiError(404, 'Test not found');
   }
