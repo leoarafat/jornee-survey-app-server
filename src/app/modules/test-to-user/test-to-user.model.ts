@@ -8,6 +8,10 @@ const testUserSchema = new Schema<ITestUser>(
       ref: 'Test',
       required: true,
     },
+    prompts: {
+      type: Schema.Types.ObjectId,
+      ref: 'DailyPrompts',
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',

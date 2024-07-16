@@ -9,19 +9,9 @@ router.get(
   DashboardController.totalCount,
 );
 router.get(
-  '/all-drivers',
+  '/earning-analytics',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  DashboardController.getAllDriver,
-);
-router.get(
-  '/all-users',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  DashboardController.getAllUsers,
-);
-router.get(
-  '/driver-growth',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  DashboardController.getDriverGrowth,
+  DashboardController.getLast12MonthsEarningsOverview,
 );
 
 export const DashboardRoutes = router;
