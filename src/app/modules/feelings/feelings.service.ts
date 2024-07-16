@@ -3,6 +3,7 @@ import { IReqUser } from '../user/user.interface';
 import { IFeelings } from './feelings.interface';
 import ApiError from '../../../errors/ApiError';
 import { Feelings } from './feelings.model';
+import QueryBuilder from '../../../builder/QueryBuilder';
 
 const createFeelingsLog = async (req: Request) => {
   const { userId } = req.user as IReqUser;
@@ -46,8 +47,16 @@ const getEmotionPercentages = async () => {
     throw new Error('Failed to retrieve emotion percentages');
   }
 };
-const allUserReports = async () => {
-  return await Feelings.find();
+const allUserReports = async (req: Request) => {
+  const query = req.query;
+  const feelingsQuery = new QueryBuilder(Feelings.find(), query).paginate();
+
+  const totalCount = await feelingsQuery.countTotal();
+  const result = await feelingsQuery.modelQuery;
+  return {
+    meta: totalCount,
+    result,
+  };
 };
 export const FeelingsService = {
   createFeelingsLog,

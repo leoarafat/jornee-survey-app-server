@@ -11,6 +11,11 @@ const testUserSchema = new Schema<ITestUser>(
     prompts: {
       type: Schema.Types.ObjectId,
       ref: 'DailyPrompts',
+      required: true,
+    },
+    promptsAnswer: {
+      type: String,
+      required: true,
     },
     user: {
       type: Schema.Types.ObjectId,

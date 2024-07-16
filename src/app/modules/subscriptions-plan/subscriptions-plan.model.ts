@@ -18,6 +18,15 @@ const subscriptionPlanSchema = new Schema<ISubscriptionPlan>(
       type: Number,
       required: true,
     },
+    packageDuration: {
+      type: Number,
+      required: true,
+    },
+    planType: {
+      type: String,
+      enum: ['monthly', 'yearly'],
+      required: true,
+    },
   },
   { timestamps: true },
 );

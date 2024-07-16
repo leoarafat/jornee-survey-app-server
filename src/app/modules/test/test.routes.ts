@@ -31,6 +31,11 @@ router.get(
   TestController.getTests,
 );
 router.get(
+  '/all-prompts',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
+  TestController.getAllJournalizingPrompt,
+);
+router.get(
   '/items/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestController.getTestItems,

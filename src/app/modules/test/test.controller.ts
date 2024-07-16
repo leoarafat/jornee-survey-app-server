@@ -76,6 +76,18 @@ const getJournalizingPrompt = catchAsync(
     });
   },
 );
+const getAllJournalizingPrompt = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await TestService.getAllJournalizingPrompt();
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Retrieved successfully',
+      data: result,
+    });
+  },
+);
 const updateTest = catchAsync(async (req: Request, res: Response) => {
   const result = await TestService.updateTest(req);
   sendResponse(res, {
@@ -150,4 +162,5 @@ export const TestController = {
   updateJournalizingPrompt,
   deleteJournalizingPrompt,
   createMultiplePrompts,
+  getAllJournalizingPrompt,
 };

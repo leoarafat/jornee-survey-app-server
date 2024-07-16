@@ -9,6 +9,7 @@ export type ITestUser = {
   prompts: Types.ObjectId | IDailyPrompts;
   score: number;
   scoreType: string;
+  promptsAnswer: string;
   scoreResult: string;
   totalQuestion: number;
 };

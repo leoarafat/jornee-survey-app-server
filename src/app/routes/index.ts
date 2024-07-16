@@ -9,11 +9,12 @@ import { DashboardOverviewRoutes } from '../modules/overview/overview.routes';
 import { FeedbackRoutes } from '../modules/feedback/feedback.routes';
 import { PaymentRoutes } from '../modules/payment/payment.routes';
 import { DashboardRoutes } from '../modules/dashboard/dashboard.routes';
-import { RattingRoutes } from '../modules/rattings/rattings.routes';
+
 import { TestRoutes } from '../modules/test/test.routes';
 import { TestUserRoutes } from '../modules/test-to-user/test-to-user.routes';
 import { DailyPromptRoutes } from '../modules/daily-promts/daily-promts.routes';
 import { FeelingRoutes } from '../modules/feelings/feelings.routes';
+import { ResourceRoutes } from '../modules/resources/resources.routes';
 
 const router = express.Router();
 
@@ -58,10 +59,6 @@ const moduleRoutes = [
   },
 
   {
-    path: '/ratting',
-    route: RattingRoutes,
-  },
-  {
     path: '/test',
     route: TestRoutes,
   },
@@ -76,6 +73,10 @@ const moduleRoutes = [
   {
     path: '/daily-prompts',
     route: DailyPromptRoutes,
+  },
+  {
+    path: '/resource',
+    route: ResourceRoutes,
   },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

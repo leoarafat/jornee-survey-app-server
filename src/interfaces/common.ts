@@ -18,6 +18,7 @@ export type CustomRequest = {
     truckDocumentImage?: UploadedFile[];
     image?: UploadedFile[];
     truckImage?: UploadedFile[];
+    pdf: UploadedFile[];
   };
   params: {
     id: string;

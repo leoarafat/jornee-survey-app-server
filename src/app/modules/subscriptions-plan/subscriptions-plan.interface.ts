@@ -6,6 +6,8 @@ export type IPackageDetails = { title: string; status: boolean };
 export type ISubscriptionPlan = {
   packageName: string;
   packagePrice: number;
+  packageDuration: number;
+  planType: 'yearly' | 'monthly';
 };
 export type ISubscriptionPlanForUser = {
   user: Types.ObjectId | IUser;

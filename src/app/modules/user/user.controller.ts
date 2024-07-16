@@ -20,7 +20,7 @@ const registrationUser: RequestHandler = catchAsync(
 );
 const socialAuth: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.socialAuth(req.body);
+    const result = await UserService.socialAuth(req);
 
     sendResponse(res, {
       statusCode: 200,

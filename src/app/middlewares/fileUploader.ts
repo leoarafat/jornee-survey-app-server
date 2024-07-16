@@ -16,8 +16,8 @@ export const uploadFile = () => {
         uploadPath = 'uploads/images/image';
       } else if (file.fieldname === 'video') {
         uploadPath = 'uploads/video';
-      } else if (file.fieldname === 'truckDocumentImage') {
-        uploadPath = 'uploads/images/trucks';
+      } else if (file.fieldname === 'pdf') {
+        uploadPath = 'uploads/pdf';
       } else if (file.fieldname === 'truckImage') {
         uploadPath = 'uploads/images/trucks';
       } else {
@@ -28,7 +28,8 @@ export const uploadFile = () => {
         file.mimetype === 'image/jpeg' ||
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
-        file.mimetype === 'video/mp4'
+        file.mimetype === 'video/mp4' ||
+        file.mimetype === 'application/pdf'
       ) {
         cb(null, uploadPath);
       } else {
@@ -49,7 +50,7 @@ export const uploadFile = () => {
       'truckDocumentImage',
       'licenseBackImage',
       'licenseFrontImage',
-      'video_thumbnail',
+      'pdf',
     ];
 
     if (file.fieldname === undefined) {
@@ -60,6 +61,7 @@ export const uploadFile = () => {
         file.mimetype === 'image/jpeg' ||
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
+        file.mimetype === 'application/pdf' ||
         file.mimetype === 'video/mp4'
       ) {
         cb(null, true);
@@ -78,7 +80,7 @@ export const uploadFile = () => {
     { name: 'image', maxCount: 1 },
     { name: 'truckImage', maxCount: 1 },
     { name: 'truckDocumentImage', maxCount: 1 },
-    { name: 'video', maxCount: 1 },
+    { name: 'pdf', maxCount: 1 },
     { name: 'licenseBackImage', maxCount: 1 },
     { name: 'licenseFrontImage', maxCount: 1 },
   ]);

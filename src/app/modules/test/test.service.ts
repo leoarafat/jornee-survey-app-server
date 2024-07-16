@@ -51,6 +51,9 @@ const getTestItem = async (id: string) => {
 const getJournalizingPrompt = async (id: string) => {
   return await JournalizingPrompt.find({ test: id });
 };
+const getAllJournalizingPrompt = async () => {
+  return await JournalizingPrompt.find();
+};
 const updateTest = async (req: Request) => {
   const { id } = req.params;
   const data = req.body;
@@ -128,4 +131,5 @@ export const TestService = {
   updateJournalizingPrompt,
   deleteJournalizingPrompt,
   createMultiplePrompts,
+  getAllJournalizingPrompt,
 };

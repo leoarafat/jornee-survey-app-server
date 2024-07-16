@@ -27,7 +27,7 @@ const getEmotionPercentages: RequestHandler = catchAsync(
 );
 const allUserReports: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await FeelingsService.allUserReports();
+    const result = await FeelingsService.allUserReports(req);
     sendResponse(res, {
       statusCode: 200,
       success: true,

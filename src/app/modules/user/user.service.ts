@@ -145,8 +145,11 @@ const getAllUsers = async (
 //!
 const socialAuth = async (req: Request) => {
   const { email } = req.body;
+
   const user = await User.findOne({ email });
-  if (!user) {
+  if (user) {
+    throw new ApiError(400, 'User already exist');
+  } else {
     const result = await User.create({
       email,
     });
