@@ -4,11 +4,19 @@ import auth from '../../middlewares/auth';
 import { ENUM_USER_ROLE } from '../../../enums/user';
 
 const router = express.Router();
-router.post('/send', FeedbackController.sendFeedBack);
+router.post(
+  '/create',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FeedbackController.creteNotification,
+);
 router.get(
   '/all',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  FeedbackController.getFeedback,
+  FeedbackController.getNotification,
 );
-router.post('/reply/:id', FeedbackController.addReplyToFeedback);
+router.post(
+  '/send',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FeedbackController.addReplyToFeedback,
+);
 export const FeedbackRoutes = router;

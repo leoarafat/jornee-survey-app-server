@@ -44,7 +44,7 @@ const moduleRoutes = [
     route: DashboardOverviewRoutes,
   },
   {
-    path: '/feedback',
+    path: '/notifications',
     route: FeedbackRoutes,
   },
   {

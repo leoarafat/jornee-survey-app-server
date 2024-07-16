@@ -1,14 +1,14 @@
 import mongoose, { model, Schema } from 'mongoose';
 
-const replySchema = new mongoose.Schema(
+const notificationDescription = new mongoose.Schema(
   {
-    text: {
+    description: {
       type: String,
     },
-    status: {
-      type: String,
-      enum: ['pending', 'replied'],
-      default: 'pending',
+    feedback: {
+      type: Schema.Types.ObjectId,
+      ref: 'FeedBack',
+      required: true,
     },
   },
   {
@@ -25,23 +25,14 @@ const feedbackSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'Driver',
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    reply: replySchema,
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-    },
   },
 );
 
 export const FeedBack = model('FeedBack', feedbackSchema);
+export const FeedBackDescription = model(
+  'FeedBackDescription',
+  notificationDescription,
+);

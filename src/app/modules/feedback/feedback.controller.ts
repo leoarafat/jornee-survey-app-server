@@ -3,21 +3,21 @@ import catchAsync from '../../../shared/catchasync';
 import { FeedBackService } from './feedback.service';
 import sendResponse from '../../../shared/sendResponse';
 
-const sendFeedBack = catchAsync(async (req: Request, res: Response) => {
-  const result = await FeedBackService.sendFeedBack(req);
+const creteNotification = catchAsync(async (req: Request, res: Response) => {
+  const result = await FeedBackService.creteNotification(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Message send successfully',
+    message: 'successfully',
     data: result,
   });
 });
-const getFeedback = catchAsync(async (req: Request, res: Response) => {
-  const result = await FeedBackService.getFeedback(req.query);
+const getNotification = catchAsync(async (req: Request, res: Response) => {
+  const result = await FeedBackService.getNotification();
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Feedback retrieved successfully',
+    message: 'retrieved successfully',
     data: result,
   });
 });
@@ -26,13 +26,13 @@ const addReplyToFeedback = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Reply added successfully',
+    message: 'successfully',
     data: result,
   });
 });
 
 export const FeedbackController = {
+  creteNotification,
+  getNotification,
   addReplyToFeedback,
-  sendFeedBack,
-  getFeedback,
 };
