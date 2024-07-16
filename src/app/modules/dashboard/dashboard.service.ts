@@ -1,5 +1,9 @@
+import { Request } from 'express';
+import QueryBuilder from '../../../builder/QueryBuilder';
+import { IGenericResponse } from '../../../interfaces/paginations';
 import { Subscription } from '../subscriptions/subscriptions.model';
 import { TestUser } from '../test-to-user/test-to-user.model';
+import { IUser } from '../user/user.interface';
 
 import User from '../user/user.model';
 const totalCount = async () => {
@@ -172,7 +176,30 @@ const monthNames = [
   'Nov',
   'Dec',
 ];
+const getAllUsers = async (
+  query: Record<string, unknown>,
+): Promise<IGenericResponse<IUser[]>> => {
+  const userQuery = new QueryBuilder(User.find(), query)
+    .search(['email'])
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await userQuery.modelQuery;
+  const meta = await userQuery.countTotal();
+
+  return {
+    meta,
+    data: result,
+  };
+};
+const singleUser = async (req: Request) => {
+  return await User.findById(req.params.id);
+};
 export const DashboardService = {
   totalCount,
   getLast12MonthsEarningsOverview,
+  getAllUsers,
+  singleUser,
 };

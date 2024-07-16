@@ -23,8 +23,28 @@ const getLast12MonthsEarningsOverview = catchAsync(
     });
   },
 );
+const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+  const result = await DashboardService.getAllUsers(req.query);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Data retrieved successful',
+    data: result,
+  });
+});
+const singleUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await DashboardService.singleUser(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Data retrieved successful',
+    data: result,
+  });
+});
 
 export const DashboardController = {
   totalCount,
   getLast12MonthsEarningsOverview,
+  getAllUsers,
+  singleUser,
 };
