@@ -13,6 +13,7 @@ import { RattingRoutes } from '../modules/rattings/rattings.routes';
 import { TestRoutes } from '../modules/test/test.routes';
 import { TestUserRoutes } from '../modules/test-to-user/test-to-user.routes';
 import { DailyPromptRoutes } from '../modules/daily-promts/daily-promts.routes';
+import { FeelingRoutes } from '../modules/feelings/feelings.routes';
 
 const router = express.Router();
 
@@ -67,6 +68,10 @@ const moduleRoutes = [
   {
     path: '/begin-test',
     route: TestUserRoutes,
+  },
+  {
+    path: '/feelings',
+    route: FeelingRoutes,
   },
   {
     path: '/daily-prompts',
