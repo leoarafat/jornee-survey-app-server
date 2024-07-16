@@ -109,20 +109,20 @@ const activateUser = async (payload: IActivationRequest) => {
   };
 };
 
-cron.schedule('* * * * *', async () => {
-  try {
-    const now = new Date();
-    const result = await User.deleteMany({
-      isActive: false,
-      expirationTime: { $lte: now },
-    });
-    if (result.deletedCount > 0) {
-      logger.info(`Deleted ${result.deletedCount} expired inactive users`);
-    }
-  } catch (error) {
-    logger.error('Error deleting expired users:', error);
-  }
-});
+// cron.schedule('* * * * *', async () => {
+//   try {
+//     const now = new Date();
+//     const result = await User.deleteMany({
+//       isActive: false,
+//       expirationTime: { $lte: now },
+//     });
+//     if (result.deletedCount > 0) {
+//       logger.info(`Deleted ${result.deletedCount} expired inactive users`);
+//     }
+//   } catch (error) {
+//     logger.error('Error deleting expired users:', error);
+//   }
+// });
 //!
 const getAllUsers = async (
   query: Record<string, unknown>,
