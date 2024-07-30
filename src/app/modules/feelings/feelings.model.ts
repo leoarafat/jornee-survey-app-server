@@ -9,7 +9,7 @@ const feelingsSchema = new Schema<IFeelings>(
       required: true,
     },
     emotions: {
-      type: String,
+      type: [String],
       enum: [
         'joy',
         'trust',

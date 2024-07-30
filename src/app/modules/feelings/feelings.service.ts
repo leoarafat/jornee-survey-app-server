@@ -16,11 +16,47 @@ const createFeelingsLog = async (req: Request) => {
     user: userId,
   });
 };
+//!
+// const getEmotionPercentages = async () => {
+//   try {
+//     const totalCount = await Feelings.countDocuments();
+
+//     const aggregationResult = await Feelings.aggregate([
+//       {
+//         $group: {
+//           _id: '$emotions',
+//           count: { $sum: 1 },
+//         },
+//       },
+//       {
+//         $project: {
+//           emotion: '$_id',
+//           percentage: { $multiply: [{ $divide: ['$count', totalCount] }, 100] },
+//           _id: 0,
+//         },
+//       },
+//     ]);
+
+//     const formattedResult = aggregationResult.map((item: any) => ({
+//       emotion: item.emotion,
+//       percentage: item.percentage.toFixed(2),
+//     }));
+
+//     return formattedResult;
+//   } catch (error: any) {
+//     console.error('Error calculating emotion percentages:', error.message);
+//     throw new Error('Failed to retrieve emotion percentages');
+//   }
+// };
+//!
 const getEmotionPercentages = async () => {
   try {
     const totalCount = await Feelings.countDocuments();
 
     const aggregationResult = await Feelings.aggregate([
+      {
+        $unwind: '$emotions',
+      },
       {
         $group: {
           _id: '$emotions',

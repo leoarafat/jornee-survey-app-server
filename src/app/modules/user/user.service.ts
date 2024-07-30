@@ -109,20 +109,20 @@ const activateUser = async (payload: IActivationRequest) => {
   };
 };
 
-// cron.schedule('* * * * *', async () => {
-//   try {
-//     const now = new Date();
-//     const result = await User.deleteMany({
-//       isActive: false,
-//       expirationTime: { $lte: now },
-//     });
-//     if (result.deletedCount > 0) {
-//       logger.info(`Deleted ${result.deletedCount} expired inactive users`);
-//     }
-//   } catch (error) {
-//     logger.error('Error deleting expired users:', error);
-//   }
-// });
+cron.schedule('* * * * *', async () => {
+  try {
+    const now = new Date();
+    const result = await User.deleteMany({
+      isActive: false,
+      expirationTime: { $lte: now },
+    });
+    if (result.deletedCount > 0) {
+      logger.info(`Deleted ${result.deletedCount} expired inactive users`);
+    }
+  } catch (error) {
+    logger.error('Error deleting expired users:', error);
+  }
+});
 //!
 const getAllUsers = async (
   query: Record<string, unknown>,
@@ -148,10 +148,27 @@ const socialAuth = async (req: Request) => {
 
   const user = await User.findOne({ email });
   if (user) {
-    throw new ApiError(400, 'User already exist');
+    const { _id: userId, role } = user;
+    const accessToken = jwtHelpers.createToken(
+      { userId, role },
+      config.jwt.secret as Secret,
+      config.jwt.expires_in as string,
+    );
+
+    const refreshToken = jwtHelpers.createToken(
+      { userId, role },
+      config.jwt.refresh_secret as Secret,
+      config.jwt.refresh_expires_in as string,
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   } else {
     const result = await User.create({
       email,
+      isActive: true,
     });
     const { _id: userId, role } = result;
     const accessToken = jwtHelpers.createToken(
@@ -159,7 +176,7 @@ const socialAuth = async (req: Request) => {
       config.jwt.secret as Secret,
       config.jwt.expires_in as string,
     );
-    //Create refresh token
+
     const refreshToken = jwtHelpers.createToken(
       { userId, role },
       config.jwt.refresh_secret as Secret,

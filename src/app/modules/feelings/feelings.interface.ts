@@ -3,7 +3,7 @@ import { IUser } from '../user/user.interface';
 
 export type IFeelings = {
   user: Types.ObjectId | IUser;
-  emotions:
+  emotions: (
     | 'joy'
     | 'trust'
     | 'anger'
@@ -12,7 +12,8 @@ export type IFeelings = {
     | 'surprise'
     | 'disgust'
     | 'sadness'
-    | 'something else';
+    | 'something else'
+  )[];
   feelings: string;
   needs: string;
 };
