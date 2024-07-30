@@ -16,4 +16,5 @@ export type IFeelings = {
   )[];
   feelings: string;
   needs: string;
+  color: string[];
 };

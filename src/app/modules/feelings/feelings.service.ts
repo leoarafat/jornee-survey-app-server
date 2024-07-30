@@ -4,6 +4,7 @@ import { IFeelings } from './feelings.interface';
 import ApiError from '../../../errors/ApiError';
 import { Feelings } from './feelings.model';
 import QueryBuilder from '../../../builder/QueryBuilder';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createFeelingsLog = async (req: Request) => {
   const { userId } = req.user as IReqUser;
@@ -94,8 +95,14 @@ const allUserReports = async (req: Request) => {
     result,
   };
 };
+const myFeelings = async (req: Request) => {
+  const user = req.user as JwtPayload;
+  const query = await Feelings.findOne({ user: user.userId });
+  return query;
+};
 export const FeelingsService = {
   createFeelingsLog,
   getEmotionPercentages,
   allUserReports,
+  myFeelings,
 };

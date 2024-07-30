@@ -31,6 +31,10 @@ const feelingsSchema = new Schema<IFeelings>(
       type: String,
       required: true,
     },
+    color: {
+      type: [String],
+      required: true,
+    },
   },
   {
     timestamps: true,

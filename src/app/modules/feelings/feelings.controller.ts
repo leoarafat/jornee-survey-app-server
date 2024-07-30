@@ -36,9 +36,21 @@ const allUserReports: RequestHandler = catchAsync(
     });
   },
 );
+const myFeelings: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await FeelingsService.myFeelings(req);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: `Retried successfully`,
+      data: result,
+    });
+  },
+);
 
 export const FeelingsController = {
   createFeelingsLog,
   getEmotionPercentages,
   allUserReports,
+  myFeelings,
 };
