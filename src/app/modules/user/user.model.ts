@@ -68,6 +68,10 @@ const UserSchema = new Schema<IUser, UserModel>(
       type: Boolean,
       default: false,
     },
+    isSocialLogin: {
+      type: Boolean,
+      default: false,
+    },
     isSubscribed: {
       type: Boolean,
       default: false,

@@ -169,6 +169,7 @@ const socialAuth = async (req: Request) => {
     const result = await User.create({
       email,
       isActive: true,
+      isSocialLogin: true,
     });
     const { _id: userId, role } = result;
     const accessToken = jwtHelpers.createToken(

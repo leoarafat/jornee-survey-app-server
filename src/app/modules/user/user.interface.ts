@@ -41,25 +41,6 @@ export type IUser = {
   address: string;
   role: 'ADMIN' | 'SUPER_ADMIN' | 'USER';
   profile_image: string;
-  cover_image: string;
-  date_of_birth: Date;
-  location: string;
-  active_status: 'online' | 'offline';
-  interests: [string];
-  bio: string;
-  work_position: string;
-  education: string;
-  language: string;
-  relationship_status: 'single' | 'married' | 'separated';
-  have_kids: string;
-  smoke: string;
-  drink: string;
-  height: string;
-  body_type: string;
-  eyes: string;
-  looking_for: string;
-  gender: 'male' | 'female' | 'others' | '';
-  plan_type: 'free' | 'silver' | 'gold' | 'premium';
   isSubscribed: boolean;
   is_block: boolean;
   verifyCode: any;
@@ -69,6 +50,7 @@ export type IUser = {
   expirationTime: Date;
   age: string;
   isPaid: boolean;
+  isSocialLogin: boolean;
   conversationId: string;
 };
 export type UserModel = {
