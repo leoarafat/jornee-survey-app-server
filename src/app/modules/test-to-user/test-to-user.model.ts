@@ -8,15 +8,7 @@ const testUserSchema = new Schema<ITestUser>(
       ref: 'Test',
       required: true,
     },
-    // prompts: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'DailyPrompts',
-    //   required: true,
-    // },
-    // promptsAnswer: {
-    //   type: String,
-    //   required: true,
-    // },
+
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -32,11 +24,11 @@ const testUserSchema = new Schema<ITestUser>(
     },
     scoreType: {
       type: String,
-      required: true,
+      // required: true,
     },
     scoreResult: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   {

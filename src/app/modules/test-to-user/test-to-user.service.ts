@@ -4,16 +4,12 @@ import { IReqUser } from '../user/user.interface';
 import { ITestUser } from './test-to-user.interface';
 import { TestUser } from './test-to-user.model';
 import mongoose from 'mongoose';
+import { TestItem } from '../test/test.model';
 
 const createUserTest = async (req: Request) => {
   const { userId } = req.user as IReqUser;
   const payload = req.body as ITestUser;
-  if (
-    !payload.score ||
-    !payload.scoreType ||
-    !payload.test ||
-    !payload.totalQuestion
-  ) {
+  if (!payload.score || !payload.test) {
     throw new ApiError(400, 'All field are required');
   }
   return await TestUser.create({
@@ -21,7 +17,10 @@ const createUserTest = async (req: Request) => {
     user: userId,
   });
 };
-
+const getTestDetails = async (id: string) => {
+  const result = await TestItem.find({ test: id });
+  return result.map(item => item.item);
+};
 const averageTestPercentage = async () => {
   try {
     const totalDocuments = await TestUser.countDocuments();
@@ -110,4 +109,5 @@ export const TestUserService = {
   getTestUser,
   averageTestPercentage,
   getScoreTypeDistributionByTestId,
+  getTestDetails,
 };

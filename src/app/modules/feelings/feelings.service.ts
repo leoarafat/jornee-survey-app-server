@@ -97,12 +97,16 @@ const allUserReports = async (req: Request) => {
 };
 const myFeelings = async (req: Request) => {
   const user = req.user as JwtPayload;
-  const query = await Feelings.findOne({ user: user.userId });
+  const query = await Feelings.find({ user: user.userId });
   return query;
+};
+const deleteFeelings = async (id: string) => {
+  return await Feelings.findByIdAndDelete(id);
 };
 export const FeelingsService = {
   createFeelingsLog,
   getEmotionPercentages,
   allUserReports,
   myFeelings,
+  deleteFeelings,
 };

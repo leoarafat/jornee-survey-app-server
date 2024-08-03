@@ -47,10 +47,22 @@ const myFeelings: RequestHandler = catchAsync(
     });
   },
 );
+const deleteFeelings: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await FeelingsService.deleteFeelings(req.params.id);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: `Delete successfully`,
+      data: result,
+    });
+  },
+);
 
 export const FeelingsController = {
   createFeelingsLog,
   getEmotionPercentages,
   allUserReports,
   myFeelings,
+  deleteFeelings,
 };

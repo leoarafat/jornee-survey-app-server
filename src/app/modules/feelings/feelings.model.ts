@@ -10,17 +10,17 @@ const feelingsSchema = new Schema<IFeelings>(
     },
     emotions: {
       type: [String],
-      enum: [
-        'joy',
-        'trust',
-        'anger',
-        'anticipation',
-        'fear',
-        'surprise',
-        'disgust',
-        'sadness',
-        'something else',
-      ],
+      // enum: [
+      //   'joy',
+      //   'trust',
+      //   'anger',
+      //   'anticipation',
+      //   'fear',
+      //   'surprise',
+      //   'disgust',
+      //   'sadness',
+      //   'something else',
+      // ],
       required: true,
     },
     feelings: {
