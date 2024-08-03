@@ -16,19 +16,11 @@ const testUserSchema = new Schema<ITestUser>(
     },
     score: {
       type: Number,
-      required: true,
+      // required: true,
     },
     totalQuestion: {
       type: Number,
-      // required: true,
-    },
-    scoreType: {
-      type: String,
-      // required: true,
-    },
-    scoreResult: {
-      type: String,
-      // required: true,
+      required: true,
     },
   },
   {

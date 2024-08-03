@@ -4,7 +4,8 @@ import { IReqUser } from '../user/user.interface';
 import { ITestUser } from './test-to-user.interface';
 import { TestUser } from './test-to-user.model';
 import mongoose from 'mongoose';
-import { TestItem } from '../test/test.model';
+import { TestResult } from '../test/test.model';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createUserTest = async (req: Request) => {
   const { userId } = req.user as IReqUser;
@@ -17,9 +18,44 @@ const createUserTest = async (req: Request) => {
     user: userId,
   });
 };
-const getTestDetails = async (id: string) => {
-  const result = await TestItem.find({ test: id });
-  return result.map(item => item.item);
+
+const getTestDetails = async (req: Request) => {
+  const testId = req.params.id;
+  const score = Number(req.params.score);
+  let result;
+  if (score >= 32 && score <= 40) {
+    result = await TestResult.findOne({
+      test: testId,
+      resultName: 'well met',
+    });
+  } else if (score >= 17 && score <= 31) {
+    result = await TestResult.findOne({
+      test: testId,
+      resultName: 'moderately unmet',
+    });
+  } else if (score >= 8 && score <= 16) {
+    result = await TestResult.findOne({
+      test: testId,
+      resultName: 'likely unmet',
+    }).populate({
+      path: 'test',
+      select: 'name',
+    });
+  }
+  return result;
+};
+const latestTest = async (user: JwtPayload) => {
+  const lastTest = await TestUser.findOne({ user: user.userId }).sort({
+    createdAt: -1,
+  });
+
+  const result = await TestResult.findOne({
+    test: lastTest && lastTest.test,
+  }).populate({
+    path: 'test',
+    select: 'name',
+  });
+  return result;
 };
 const averageTestPercentage = async () => {
   try {
@@ -110,4 +146,5 @@ export const TestUserService = {
   averageTestPercentage,
   getScoreTypeDistributionByTestId,
   getTestDetails,
+  latestTest,
 };

@@ -21,6 +21,11 @@ router.post(
   TestController.createTestItem,
 );
 router.post(
+  '/create-test-result',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  TestController.addTestResult,
+);
+router.post(
   '/create-prompt-question',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   TestController.createJournalizingPrompt,

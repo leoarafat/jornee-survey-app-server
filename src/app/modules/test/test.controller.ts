@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import catchAsync from '../../../shared/catchasync';
 import sendResponse from '../../../shared/sendResponse';
 import { TestService } from './test.service';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createTest = catchAsync(async (req: Request, res: Response) => {
   const result = await TestService.createTest(req.body);
@@ -147,7 +148,18 @@ const deleteJournalizingPrompt = catchAsync(
     });
   },
 );
-
+const addTestResult = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.addTestResult(
+    req.user as JwtPayload,
+    req.body,
+  );
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Test result created successfully',
+    data: result,
+  });
+});
 export const TestController = {
   createTest,
   createTestItem,
@@ -163,4 +175,5 @@ export const TestController = {
   deleteJournalizingPrompt,
   createMultiplePrompts,
   getAllJournalizingPrompt,
+  addTestResult,
 };

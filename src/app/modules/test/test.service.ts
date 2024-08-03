@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import ApiError from '../../../errors/ApiError';
-import { ITest, ITestItem } from './test.interface';
-import { JournalizingPrompt, Test, TestItem } from './test.model';
+import { ITest, ITestItem, ITestResult } from './test.interface';
+import { JournalizingPrompt, Test, TestItem, TestResult } from './test.model';
 import { asyncForEach } from '../../../utils/asyncForEach';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createTest = async (payload: ITest) => {
   const isExistTest = await Test.findOne({ name: payload.name });
@@ -21,6 +22,9 @@ const createTestItem = async (payload: ITestItem) => {
     throw new ApiError(400, `${payload.item} already exist`);
   }
   return await TestItem.create(payload);
+};
+const addTestResult = async (user: JwtPayload, payload: ITestResult) => {
+  return await TestResult.create(payload);
 };
 const createMultiplePrompts = async (payload: any) => {
   const { items, test } = payload;
@@ -132,4 +136,5 @@ export const TestService = {
   deleteJournalizingPrompt,
   createMultiplePrompts,
   getAllJournalizingPrompt,
+  addTestResult,
 };
