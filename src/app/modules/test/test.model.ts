@@ -34,11 +34,11 @@ const journalizingPromptsItemSchema = new Schema<ITestItem>(
       type: String,
       required: true,
     },
-    test: {
-      type: Schema.Types.ObjectId,
-      ref: 'Test',
-      required: true,
-    },
+    // test: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Test',
+    //   required: true,
+    // },
   },
   {
     timestamps: true,

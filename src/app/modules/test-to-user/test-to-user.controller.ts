@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import catchAsync from '../../../shared/catchasync';
 import sendResponse from '../../../shared/sendResponse';
 import { TestUserService } from './test-to-user.service';
-import { JwtPayload } from 'jsonwebtoken';
 
 const createUserTest = catchAsync(async (req: Request, res: Response) => {
   const result = await TestUserService.createUserTest(req);
@@ -59,7 +58,7 @@ const getScoreTypeDistributionByTestId = catchAsync(
   },
 );
 const latestTest = catchAsync(async (req: Request, res: Response) => {
-  const result = await TestUserService.latestTest(req.user as JwtPayload);
+  const result = await TestUserService.latestTest(req.params.id);
 
   sendResponse(res, {
     statusCode: 200,

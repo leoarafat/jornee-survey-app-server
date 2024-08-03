@@ -5,7 +5,6 @@ import { ITestUser } from './test-to-user.interface';
 import { TestUser } from './test-to-user.model';
 import mongoose from 'mongoose';
 import { TestResult } from '../test/test.model';
-import { JwtPayload } from 'jsonwebtoken';
 
 const createUserTest = async (req: Request) => {
   const { userId } = req.user as IReqUser;
@@ -44,13 +43,9 @@ const getTestDetails = async (req: Request) => {
   }
   return result;
 };
-const latestTest = async (user: JwtPayload) => {
-  const lastTest = await TestUser.findOne({ user: user.userId }).sort({
-    createdAt: -1,
-  });
-
+const latestTest = async (id: string) => {
   const result = await TestResult.findOne({
-    test: lastTest && lastTest.test,
+    test: id,
   }).populate({
     path: 'test',
     select: 'name',

@@ -12,6 +12,10 @@ const dailyPromptsSchema = new Schema<IDailyPrompts>({
     ref: 'Test',
     required: true,
   },
+  question: {
+    type: String,
+    required: true,
+  },
   answer: {
     type: String,
     required: true,

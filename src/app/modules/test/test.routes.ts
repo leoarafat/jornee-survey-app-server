@@ -41,6 +41,11 @@ router.get(
   TestController.getAllJournalizingPrompt,
 );
 router.get(
+  '/shuffle-prompts',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
+  TestController.sufflePromts,
+);
+router.get(
   '/items/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.USER),
   TestController.getTestItems,

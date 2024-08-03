@@ -17,7 +17,7 @@ const insertIntoDB = async (req: Request) => {
 };
 const myPromptsAnswer = async (req: Request) => {
   const { userId } = req.user as IReqUser;
-  const result = await DailyPrompts.findOne({ user: userId });
+  const result = await DailyPrompts.find({ user: userId }).populate('test');
   if (!result) {
     return null;
   }

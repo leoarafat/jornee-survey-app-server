@@ -160,6 +160,15 @@ const addTestResult = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const sufflePromts = catchAsync(async (req: Request, res: Response) => {
+  const result = await TestService.sufflePromts();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Retrieved successfully',
+    data: result,
+  });
+});
 export const TestController = {
   createTest,
   createTestItem,
@@ -176,4 +185,5 @@ export const TestController = {
   createMultiplePrompts,
   getAllJournalizingPrompt,
   addTestResult,
+  sufflePromts,
 };

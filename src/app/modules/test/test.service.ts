@@ -27,17 +27,17 @@ const addTestResult = async (user: JwtPayload, payload: ITestResult) => {
   return await TestResult.create(payload);
 };
 const createMultiplePrompts = async (payload: any) => {
-  const { items, test } = payload;
+  const { items } = payload;
 
   await asyncForEach(items, async (item: any) => {
-    return await JournalizingPrompt.create({ item, test });
+    return await JournalizingPrompt.create({ item });
   });
 };
 const createJournalizingPrompt = async (payload: ITestItem) => {
-  const isExistTest = await Test.findOne({ _id: payload.test });
-  if (!isExistTest) {
-    throw new ApiError(404, 'Test not found');
-  }
+  // const isExistTest = await Test.findOne({ _id: payload.test });
+  // if (!isExistTest) {
+  //   throw new ApiError(404, 'Test not found');
+  // }
   const isExistTestItem = await JournalizingPrompt.findOne({
     item: payload.item,
   });
@@ -57,6 +57,11 @@ const getJournalizingPrompt = async (id: string) => {
 };
 const getAllJournalizingPrompt = async () => {
   return await JournalizingPrompt.find();
+};
+const sufflePromts = async () => {
+  const allPrompts = await JournalizingPrompt.find().select('-test');
+  const randomIndex = Math.floor(Math.random() * allPrompts.length);
+  return allPrompts[randomIndex];
 };
 const updateTest = async (req: Request) => {
   const { id } = req.params;
@@ -137,4 +142,5 @@ export const TestService = {
   createMultiplePrompts,
   getAllJournalizingPrompt,
   addTestResult,
+  sufflePromts,
 };
